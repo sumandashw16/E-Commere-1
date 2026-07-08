@@ -1,4 +1,4 @@
-const mongooes = require('mongoose')
+const mongoose = require('mongoose')
 
 const ownerSchema = mongoose.Schema.create({
     fullname: String,

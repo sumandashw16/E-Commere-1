@@ -1,9 +1,12 @@
 const mongoose = require('mongoose')
+const config = require('config')
+const dbgr = require("debug")("development:mongoose") // This will actiavte or show in the terminal oonly when you set the env variables.
+
 
 mongoose
-.connect("mongodb://127.0.0.1:27017/SareeStore")
+.connect(`${config.get("MONGODB_URI")}/SareeStore`) //the config thing can itself see in which env is the current work is going on and brings that conenction
 .then(() => {
-    console.log("connected")
+    dbgr("connected") //to activate this you need to set env variable, in terminal: $env:DEBUG="development:*"
 })
 .catch((err) => {
     console.log(err)
