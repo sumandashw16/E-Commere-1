@@ -60,6 +60,9 @@
 <body>
   <div class="card">
     <h2>Login</h2>
+    <% if (messages.length > 0) { %>
+        <p style="color: red; font-size: 14px; text-align: center;"><%= messages[0] %></p>
+    <% } %>
     <form action="/users/login" method="POST">
       <input type="email" name="email" placeholder="Email" required>
       <input type="password" name="password" placeholder="Password" required>
