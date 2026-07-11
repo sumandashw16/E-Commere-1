@@ -10,15 +10,6 @@ const usersRouter = require('./routes/usersRouter')
 const ownersRouter = require('./routes/ownersRouter')
 const productsRouter = require('./routes/productsRouter')
 
-
-console.log(process.env.NODE_ENV) // to set this write command: $env:NODE_ENV="development"
-
-// Router Mounting
-app.use("/owners", ownersRouter)
-app.use("/products", productsRouter)
-app.use("/users", usersRouter)
-
-
 app.set("view engine", "ejs")
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
@@ -28,12 +19,23 @@ app.use(expressSession({
     resave: false,
     saveUninitialized: false,
     secret: process.env.EXPRESS_SESSION_SECRET
-    })
-)
-app.use(flash)
+}))
 
+app.use(flash())
+// Router Mounting
+app.use("/owners", ownersRouter)
+app.use("/products", productsRouter)
+app.use("/users", usersRouter)
 
+console.log(process.env.NODE_ENV) // to set this write command: $env:NODE_ENV="development"
 
 app.listen(3000, () => {
-    console.log("server running on localhost: 4000")
+    console.log("server running on localhost: 3000")
 })
+
+
+
+
+
+
+
