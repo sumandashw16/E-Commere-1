@@ -9,6 +9,7 @@ const db = require('./config/mongoose-connection')
 const usersRouter = require('./routes/usersRouter')
 const ownersRouter = require('./routes/ownersRouter')
 const productsRouter = require('./routes/productsRouter')
+const indexRouter = require('./routes/index')
 
 app.set("view engine", "ejs")
 app.use(express.json())
@@ -23,6 +24,7 @@ app.use(expressSession({
 
 app.use(flash())
 // Router Mounting
+app.use("/", indexRouter)
 app.use("/owners", ownersRouter)
 app.use("/products", productsRouter)
 app.use("/users", usersRouter)

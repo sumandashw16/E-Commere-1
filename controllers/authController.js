@@ -19,7 +19,7 @@ module.exports.registerUser = async (req,res) => {
                 })
                 let token = generateToken(CreatedUser)
                 res.cookie("token", token, {httpOnly: true})
-                res.send("Successfully Created Account")
+                res.redirect("/shop")
             })
         })  
     }
@@ -37,7 +37,7 @@ module.exports.loginUser = async (req,res) =>{
             if (result){
                 let token = generateToken(user)
                 res.cookie("token", token, {httpOnly: true})
-                return res.send("Login Successfull")
+                return res.redirect("/shop")
             }
             else{
                 res.send("Something Went Wrong")

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Shop - Saree Shop</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f3ef;
+      margin: 0;
+    }
+    nav {
+      background: #7a1f2b;
+      color: #fff;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 30px;
+      justify-content: center;
+    }
+    .card {
+      background: #fff;
+      width: 220px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+    .card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+    .card-body {
+      padding: 12px;
+    }
+    .card-body h3 {
+      font-size: 15px;
+      margin: 0 0 8px;
+    }
+    .price {
+      font-size: 14px;
+    }
+    .original {
+      text-decoration: line-through;
+      color: #999;
+      margin-right: 6px;
+    }
+    .discounted {
+      color: #7a1f2b;
+      font-weight: bold;
+    }
+    button {
+      width: 100%;
+      padding: 8px;
+      background: #7a1f2b;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      margin-top: 10px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    button:hover { background: #601722; }
+    .empty {
+      text-align: center;
+      color: #777;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <span>Saree Shop</span>
+    <a href="/users/logout">Logout</a>
+  </nav>
+
+  <div class="grid">
+    <% if (products.length === 0) { %>
+      <p class="empty">No products available right now.</p>
+    <% } else { %>
+      <% products.forEach(function(product) { %>
+        <div class="card">
+          <img src="data:image/png;base64,<%= product.image %>" alt="<%= product.name %>">
+          <div class="card-body">
+            <h3><%= product.name %></h3>
+            <div class="price">
+              <% if (product.discount > 0) { %>
+                <span class="original">₹<%= product.price %></span>
+                <span class="discounted">₹<%= (product.price - (product.price * product.discount / 100)).toFixed(0) %></span>
+              <% } else { %>
+                <span class="discounted">₹<%= product.price %></span>
+              <% } %>
+            </div>
+            <form action="/shop/add-to-cart/<%= product._id %>" method="POST">
+              <button type="submit">Add to Cart</button>
+            </form>
+          </div>
+        </div>
+      <% }) %>
+    <% } %>
+  </div>
+</body>
+</html>
